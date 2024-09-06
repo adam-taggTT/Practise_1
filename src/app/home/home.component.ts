@@ -1,23 +1,31 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
+import { setLastSeenTime } from '../states/time/time.action';
+import { AppState } from '../states/app.state';
+import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import { TimezoneEditorComponent } from "./timezone-editor/timezone-editor.component";
+
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [TimezoneEditorComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  private time$: Observable<Date>;
-  private timeSubscription: Subscription | null = null;;
+  private local_time$: Observable<Date>;
+  private timeSubscription: Subscription | null = null;
+
   public time!: string;
   public subscribeState: boolean;
 
-  constructor(private store: Store<any>) {
+  timezoneCheckboxForm: any;
+
+  constructor(private store: Store<AppState>) {
     // Initialize observable time stream
-    this.time$ = new Observable<Date>((observer) => {
+    this.local_time$ = new Observable<Date>((observer) => {
       setInterval(() => observer.next(new Date()), 1000);
     });
 
@@ -25,18 +33,22 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.subscribeState = false;
 
     // TODO: Unsubscribe
-    this.store.select('currentTime').subscribe(
-      time => { this.time = time; console.log(`[Debug] Time updated: ${time}`) }
+    this.store.select('time').subscribe(
+      time => { this.time = time.lastSeenTime }
     );
+
+    this.timezoneCheckboxForm = new timezoneCheckboxes();
 
   }
 
   subscribe(): void {
     this.subscribeState = !this.subscribeState;
 
+    console.log('Last seen time detected: ' + this.store.select('time').subscribe(time => time.lastSeenTime));
+
     if (this.subscribeState) {
       console.log('[Debug] Subscribed');
-      this.timeSubscription = this.time$.subscribe({
+      this.timeSubscription = this.local_time$.subscribe({
         next: (val) => {
           this.time = val.toLocaleTimeString();
         },
@@ -47,11 +59,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
     else {
       if (this.timeSubscription) {
+        this.store.dispatch(setLastSeenTime({ lastSeenTime: this.time }));
         this.timeSubscription.unsubscribe();
       }
 
-      //Dispatch the action to update the last seen time
-      this.store.dispatch({ type: '[Home] Set Last Seen Time' });
       console.log('[Debug] Unsubscribed');
     }
   }
@@ -66,6 +77,15 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.timeSubscription.unsubscribe();
     }
   }
+}
+
+export class timezoneCheckboxes {
+  // Timezone Checkboxes - Currently hardcoded - todo, load from a service and add with a loop 
+  // for each timezone (including the newly added ones)
+  timezoneCheckboxForm = new FormGroup({
+    UK: new FormControl(''),
+    US: new FormControl(''),
+  });
 }
 
 

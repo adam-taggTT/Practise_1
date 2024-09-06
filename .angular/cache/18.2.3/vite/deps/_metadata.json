@@ -1,43 +1,61 @@
 {
-  "hash": "020a65d1",
-  "configHash": "d5fec6bb",
-  "lockfileHash": "8f83c0d6",
-  "browserHash": "e4eaddba",
+  "hash": "580f2264",
+  "configHash": "26914bf0",
+  "lockfileHash": "6e1f4172",
+  "browserHash": "76e912d0",
   "optimized": {
     "@angular/core": {
       "src": "../../../../../node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
-      "fileHash": "3ca9ad7d",
+      "fileHash": "c0fe418e",
+      "needsInterop": false
+    },
+    "@angular/forms": {
+      "src": "../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
+      "file": "@angular_forms.js",
+      "fileHash": "09218de3",
       "needsInterop": false
     },
     "@angular/platform-browser": {
       "src": "../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
       "file": "@angular_platform-browser.js",
-      "fileHash": "e0af998b",
+      "fileHash": "64cd297c",
       "needsInterop": false
     },
     "@angular/router": {
       "src": "../../../../../node_modules/@angular/router/fesm2022/router.mjs",
       "file": "@angular_router.js",
-      "fileHash": "4efe168d",
+      "fileHash": "2d34c97f",
       "needsInterop": false
     },
     "@ngrx/store": {
       "src": "../../../../../node_modules/@ngrx/store/fesm2022/ngrx-store.mjs",
       "file": "@ngrx_store.js",
-      "fileHash": "01cb2b3a",
+      "fileHash": "ef8c7a44",
+      "needsInterop": false
+    },
+    "@ngrx/store-devtools": {
+      "src": "../../../../../node_modules/@ngrx/store-devtools/fesm2022/ngrx-store-devtools.mjs",
+      "file": "@ngrx_store-devtools.js",
+      "fileHash": "b01ee76a",
       "needsInterop": false
     },
     "rxjs": {
       "src": "../../../../../node_modules/rxjs/dist/esm5/index.js",
       "file": "rxjs.js",
-      "fileHash": "a8d1aa1d",
+      "fileHash": "50add55c",
       "needsInterop": false
     }
   },
   "chunks": {
-    "chunk-NXINE5H6": {
-      "file": "chunk-NXINE5H6.js"
+    "chunk-HJ5QKNUG": {
+      "file": "chunk-HJ5QKNUG.js"
+    },
+    "chunk-ZI3JOG64": {
+      "file": "chunk-ZI3JOG64.js"
+    },
+    "chunk-HKCER2YT": {
+      "file": "chunk-HKCER2YT.js"
     },
     "chunk-VZD2ANCY": {
       "file": "chunk-VZD2ANCY.js"
